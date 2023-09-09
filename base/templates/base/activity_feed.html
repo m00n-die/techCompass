@@ -1,0 +1,10 @@
+<h3>New Job Listings</h3>
+<hr>
+
+{% for job in all_jobs %}
+<div>
+    <p><strong>@{{ job.posted_by }}</strong> {{job.created|timesince}} ago</p>
+    <a href="{% url 'Job' job.id %}">{{ job.title }}</a>
+    <hr>
+</div>
+{% endfor %}

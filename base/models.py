@@ -15,6 +15,7 @@ class Job(models.Model):
     # TODO: add more attributes later, in accordance with a specific API
     posted_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    # messages = models.ForeignKey("Comment", on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
     # applicants = 
@@ -35,6 +36,8 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-updated', '-created']
+        
     def __str__(self):
         return self.comment
-

@@ -1,0 +1,14 @@
+{% for job in jobs %}
+<a href="{% url 'user-profile' job.posted_by.id %}">@{{ job.posted_by.username }}</a>
+<div>
+    {% if request.user == job.posted_by %}
+    <a href="{% url 'update-job' job.id %}">Edit</a>
+    <a href="{% url 'delete-job' job.id%}">Delete</a>
+    {% endif %}
+</div>
+<h5>{{job.id}} - <a href="{% url 'Job' job.id %}">{{job.title}}</a></h5>
+<!-- <p>{{job.description}}</p> -->
+<p>{{ job.category.category }}</p>
+<hr>
+{% endfor %}
+</div>

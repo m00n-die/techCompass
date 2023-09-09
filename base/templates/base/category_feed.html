@@ -1,0 +1,14 @@
+<h3>Browse Categories</h3>
+<hr>
+
+<div>
+    <a href="{% url 'HomePage'%}">All</a>
+           
+</div>
+
+{% for cat in category%}
+<div>
+    <a href="{% url 'HomePage'%}?q={{cat.category}}">{{cat.category}}</a>
+            
+</div>
+{% endfor %}

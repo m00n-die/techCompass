@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>{{user.username}}</h1>
+
+<div>
+    <div>
+        {% include 'base/category_feed.html' %}
+    </div>
+    
+    <div>
+        {% include 'base/main_feed.html' %}
+    </div>
+    
+    <div>
+        {% include 'base/activity_feed.html' %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -4,7 +4,7 @@
 <style>
     .home-container {
         display: grid;
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: 1fr 3fr 1fr;
     }
 </style>
 
@@ -13,21 +13,9 @@
 <div class="home-container">
 
     <div>
-        <h3>Browse Categories</h3>
-        <hr>
-
-        <div>
-            <a href="{% url 'HomePage'%}">All</a>
-            <!-- <hr> -->
-        </div>
-
-        {% for cat in category%}
-        <div>
-            <a href="{% url 'HomePage'%}?q={{cat.category}}">{{cat.category}}</a>
-            <!-- <hr> -->
-        </div>
-        {% endfor %}
         
+        {% include 'base/category_feed.html' %}
+
     </div>
 
     <div>
@@ -35,20 +23,13 @@
         <a href="{%url 'add-job' %}">Create a Job Listing</a>
         <hr>
     <div>
-        {% for job in jobs %}
-        <span>@{{ job.posted_by.username }}</span>
-        <div>
-            <a href="{% url 'update-job' job.id %}">Edit</a>
-            <a href="{% url 'delete-job' job.id%}">Delete</a>
-        </div>
-        <h5>{{job.id}} - <a href="{% url 'Job' job.id %}">{{job.title}}</a></h5>
-        <!-- <p>{{job.description}}</p> -->
-        <p>{{ job.category.category }}</p>
-        <hr>
-        {% endfor %}
+        {% include 'base/main_feed.html' %}
     </div>
 
+    <div>
+        {% include 'base/activity_feed.html' %}
     </div>
+
     
 </div>
 
