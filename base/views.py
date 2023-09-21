@@ -94,7 +94,9 @@ def job(request, pk):
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     jobs = user.job_set.all()
-    context = {'user': user, 'jobs': jobs}
+    comments = user.comment_set.all()
+    category = Category.objects.all()
+    context = {'user': user, 'jobs': jobs, 'comments': comments, 'category': category}
     return render(request, 'base/profile.html', context)
 
 @login_required(login_url='login')
@@ -104,7 +106,9 @@ def addJob(request):
     if request.method == 'POST':
         form = JobForm(request.POST)
         if form.is_valid():
-            form.save()
+            job = form.save(commit=False)
+            job.posted_by = request.user
+            job.save()
             return redirect('HomePage')
 
     context = {"form": form}

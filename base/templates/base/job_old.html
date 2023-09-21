@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="job-container">
+    <div>
+        <h1>{{ job.title }}</h1>
+        <p>{{ job.description }}</p>
+
+        <div class="comment-wrapper">
+        <h3>Comments</h3>
+        <hr>
+
+        {% for comment in comments %}
+
+        <div>
+            {% if request.user == comment.user %}
+            <a href="{% url 'delete-comment' comment.id %}">Delete</a>
+            {% endif %}
+            <small>@{{comment.user}} {{comment.created|timesince}} ago</small>
+            <p>{{comment.comment}}</p>
+            <hr>
+        </div>
+        {% endfor %}
+        
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form method="post" action="">
+                {% csrf_token %}
+                <input type="text" name="comment" placeholder="Add a comment">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

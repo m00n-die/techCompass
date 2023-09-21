@@ -5,3 +5,4 @@ class JobForm(ModelForm):
     class Meta:
         model = Job
         fields = "__all__"
+        exclude = ['posted_by']
