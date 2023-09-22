@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from .models import Job, Category, Comment
-from .forms import JobForm
+from .forms import JobForm, UserForm
 
 
 def loginPage(request):
@@ -164,3 +164,16 @@ def deleteComment(request, pk):
     
     context = {'obj': comment}
     return render(request, 'base/delete.html', context)
+
+@login_required(login_url='login')
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance=user)
+    context = {'form': form,}
+
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+    return render(request, 'base/update_user.html', context)
